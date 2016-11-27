@@ -45,3 +45,25 @@
   "Last element in a list."
   [lst]
   (last lst))
+
+(defn single?
+  "Is lst a list of one element?."
+  [lst]
+  (and (seq lst)
+       (not (seq (rest lst)))))
+
+(defn conc1
+  "Concatenates a single element to list."
+  [lst obj]
+  (concat lst (list obj)))
+  
+;;; Not defining conc1 here, since we don't do destructive list modifications in
+;;; Clojure.
+
+(defn mklist
+  "Makes a list out of obj, unless it's already a list, and return it."
+  [obj]
+  (if (list? obj)
+    obj
+    (list obj)))
+  

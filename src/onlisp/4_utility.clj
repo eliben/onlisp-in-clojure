@@ -1,6 +1,5 @@
 (ns onlisp.4-utility)
 
-(def towns '(Frobmund Nepur Barcity Bazburg))
 (defn bookshops
   [town]
   (case town
@@ -19,10 +18,10 @@
         [(first towns) shops]
         (find-books (rest towns))))))
 
-(find-books towns)
-
 (defn find2
-  "find2 from the book."
+  "find2 from the book. Given a function and a list, returns the first entry in
+  the list where the function applied to it results in a non-nil value. Returns
+  a vector of [list-value (func list-value)]."
   [func lst]
   (if (empty? lst)
     nil
@@ -30,8 +29,6 @@
       (if val
         [(first lst) val]
         (find2 func (rest lst))))))
-
-(find2 bookshops towns)
 
 (defn find2-clj
   "A more idiomatic find2 with a loop."
@@ -43,5 +40,8 @@
         (if val
           [(first l) val]
           (recur (rest l)))))))
-  
-(find2-clj bookshops towns)
+
+(defn last1
+  "Last element in a list."
+  [lst]
+  (last lst))

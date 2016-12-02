@@ -56,7 +56,7 @@
   "Concatenates a single element to list."
   [lst obj]
   (concat lst (list obj)))
-  
+
 ;;; Not defining conc1 here, since we don't do destructive list modifications in
 ;;; Clojure.
 
@@ -66,4 +66,36 @@
   (if (list? obj)
     obj
     (list obj)))
-  
+
+(defn longer?
+  "Returns true iff xlst is longer than ylst"
+  [xlst ylst]
+  (letfn [(compare-lists [x y]
+            (and (seq x)
+                 (or (empty? y)
+                     (compare-lists (rest x) (rest y)))))]
+    (if (and (list? xlst) (list? ylst))
+      (compare-lists xlst ylst)
+      (> (count xlst) (count ylst)))))
+
+(defn group
+  "Split source into groups of n lists; the last group may be incomplete."
+  [source n]
+  ;; Use nil-padding in partition to prevent it from dropping the last group if
+  ;; isn't complete.
+  ;; An alternative here would be to use partition-all.
+  (partition n n nil source))
+
+(defn before?
+  "Does x appear in lst before y? Note that it y doesn't appear in the list at
+  all and x does, true is returned."
+  ([x y lst]
+   (before? x y lst =))
+
+  ([x y lst testfn]
+   (and (seq lst)
+        (let [head (first lst)]
+          (cond
+            (testfn y head) false
+            (testfn x head) true
+            :else (before? x y (rest lst) testfn))))))

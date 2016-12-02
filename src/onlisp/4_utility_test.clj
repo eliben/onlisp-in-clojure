@@ -25,4 +25,30 @@
     (is (= '(joe moe) (mklist (list 'joe 'moe))))
 ))
 
+(deftest test-longer?
+  (is (longer? '(a b c) '(x y)))
+  (is (not (longer? '(a b c) '(x y z))))
+  (is (not (longer? '(a b) '(x y z))))
+  (is (longer? '(a) '()))
+  (is (not (longer? '(x) '(y))))
+  (is (not (longer? '() '())))
+)
+
+(deftest test-group
+  (is (= (group '(a b c d) 2) '((a b) (c d))))
+  (is (= (group '(a b c) 2) '((a b) (c))))
+  (is (= (group '(a b c) 20) '((a b c))))
+)
+
+(deftest test-before?
+  (is (before? 'a 'b '(x y a b c)))
+  (is (before? 'a 'b '(a t b)))
+  (is (before? 'a 'b '(a t c)))
+
+  (is (not (before? 'a 'b '(t c))))
+  (is (not (before? 'a 'b '(b t c))))
+  (is (not (before? 'a 'b '(b a t c))))
+  (is (not (before? 'a 'b '(b t c a))))
+)
+
 (run-tests)

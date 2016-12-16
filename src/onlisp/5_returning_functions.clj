@@ -13,13 +13,19 @@
           fns)))
     (fn [& args] args)))
 
-((compose #(cons 4 %1) list inc) 2)
-
-((compose #(map inc %) filter) odd? '(2 7 4))
-
 (defn my-complement
   [pred]
   (compose not pred))
 
-((my-complement odd?) 5)
-((my-complement odd?) 6)
+(defn our-length
+  [lst]
+  (if (empty? lst)
+    0
+    (inc (our-length (rest lst)))))
+
+(defn our-every
+  [fun lst]
+  (if (empty? lst)
+    true
+    (and (fun (first lst))
+         (our-every fun (rest lst)))))

@@ -28,4 +28,17 @@
     (is (our-every even? emptylst))
 ))
 
+(deftest test-lrec
+  (let [lenfn (lrec (fn [x f] (inc (f))) 0)]
+    (is (= 0 (lenfn '())))
+    (is (= 3 (lenfn '(a b c)))))
+  (let [everyoddfn (lrec (fn [x f] (and (odd? x) (f))) true)]
+    (is (everyoddfn '(1 3 11)))
+    (is (everyoddfn '()))
+    (is (not (everyoddfn '(1 3 8 11)))))
+  (let [copylistfn (lrec (fn [x f] (cons x (f))))]
+    (is (= '(a b) (copylistfn '(a b))))
+    (is (= '() (copylistfn '()))))
+)
+
 (run-tests)

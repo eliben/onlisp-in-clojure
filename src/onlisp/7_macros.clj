@@ -25,3 +25,18 @@
   (our-while hungry
              (stare-intently)
              (meow)))
+
+;;; Similar to Clojure's when-let
+(defmacro when-bind
+  [[var expr] & body]
+  `(let [~var ~expr]
+     (when ~var
+       ~@body)))
+
+(mac
+    (when-bind (inp (get-user-input))
+               (process input)))
+
+(def alst '())
+(when-bind (s (seq alst))
+           (rest s))

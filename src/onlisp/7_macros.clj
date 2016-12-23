@@ -93,14 +93,14 @@
          (recur ~@(make-stepforms bindforms))))))
 
 ;(mac
- (our-do
-      ((w 3)
-       (x 1 (inc x))
-       (y 2 (inc y))
-       (z))
-     ((> x 10) (prn z) y)
-  (prn x)
-  (prn y))
+ ;(our-do
+      ;((w 3)
+       ;(x 1 (inc x))
+       ;(y 2 (inc y))
+       ;(z))
+     ;((> x 10) (prn z) y)
+  ;(prn x)
+  ;(prn y))
 ;)
 
 ;(loop [w 3
@@ -122,7 +122,7 @@
              ((> ~var ~gstop))
              ~@body)))
 
-(our-for
-  (i 1 10)
-  (prn i))
+;(our-for
+  ;(i 1 10)
+  ;(prn i))
 

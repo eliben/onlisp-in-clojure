@@ -113,3 +113,16 @@
      ;(prn x)
      ;(prn y)
      ;(recur w (inc x) (inc y) z))))
+
+(defmacro our-for
+  [[var start stop] & body]
+  (let [gstop (gensym 'stop)]
+    `(our-do ((~var ~start (inc ~var))
+              (~gstop ~stop))
+             ((> ~var ~gstop))
+             ~@body)))
+
+(our-for
+  (i 1 10)
+  (prn i))
+
